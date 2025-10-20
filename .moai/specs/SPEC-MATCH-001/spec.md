@@ -1,7 +1,7 @@
 ---
 id: MATCH-001
-version: 0.0.1
-status: draft
+version: 0.1.0
+status: completed
 created: 2025-10-20
 updated: 2025-10-20
 author: @Alfred
@@ -30,10 +30,20 @@ scope:
 
 ## HISTORY
 
-### v0.0.1 (2025-10-20)
-- **INITIAL**: 변호사 주도 매칭 시스템 명세 작성
+### v0.1.0 (2025-10-20)
+- **CHANGED**: TDD 구현 완료 (RED-GREEN-REFACTOR)
+- **ADDED**: 타입 정의 (`src/lib/types/matching.ts`)
+- **ADDED**: 매칭 서비스 레이어 (`src/lib/services/matching-service.ts`)
+- **ADDED**: 미배정 신고 조회 API (`src/app/api/lawyers/available-reports/route.ts`)
+- **ADDED**: 상담 시작 API (`src/app/api/consultations/route.ts`)
+- **ADDED**: 서비스 레이어 테스트 (10개 테스트, 100% 통과)
+- **ADDED**: API 엔드포인트 테스트 (14개 테스트, 100% 통과)
 - **AUTHOR**: @Alfred
-- **REASON**: 자동 매칭 알고리즘 제거, 변호사가 신고를 직접 선택하는 방식으로 단순화
+- **REVIEW**: N/A (Personal 모드)
+
+### v0.0.1 (2025-10-20)
+- **INITIAL**: 변호사 주도 매칭 시스템 SPEC 작성
+- **AUTHOR**: @Alfred
 
 ---
 
