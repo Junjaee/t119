@@ -4,7 +4,7 @@ version: 0.0.1
 status: draft
 created: 2025-10-20
 updated: 2025-10-20
-author: @Goos
+author: @Alfred
 priority: critical
 category: feature
 labels:
@@ -30,7 +30,7 @@ scope:
 
 ### v0.0.1 (2025-10-20)
 - **INITIAL**: 실시간 상담 시스템 명세 최초 작성
-- **AUTHOR**: @Goos
+- **AUTHOR**: @Alfred
 - **SCOPE**: Supabase Realtime 기반 1:1 채팅, 메시지 관리, 파일 첨부
 - **CONTEXT**: MVP Phase 1 - 교사와 변호사 간 실시간 상담 핵심 기능
 

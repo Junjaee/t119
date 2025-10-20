@@ -129,12 +129,24 @@ pnpm dev
   - 신고 상태 관리 (submitted → assigned → in_progress → resolved → closed)
   - 긴급도 분류 (normal/high/critical)
 
-**테스트 현황**: 76개 테스트 100% 통과 (커버리지 85%+)
+#### 4. 변호사 주도 매칭 시스템 (SPEC-MATCH-001 ✅)
+- **상태**: 완료 (v0.1.0)
+- **테스트**: 24개 통과
+- **기능**:
+  - 변호사용 미배정 신고 목록 조회 API
+  - 신고 선택 및 상담 시작 API
+  - 신고 상태 자동 전환 (submitted → assigned → in_progress)
+  - 동시 선택 방지 (409 Conflict 반환)
+  - 변호사별 최대 10개 진행 중 상담 제한
+  - 역할 기반 접근 제어 (변호사만)
+
+**테스트 현황**: 100개 테스트 100% 통과 (커버리지 85%+)
 
 ### SPEC 문서
 - [SPEC-INFRA-001: Supabase 통합 설정](.moai/specs/SPEC-INFRA-001/spec.md)
 - [SPEC-AUTH-001: 다중 역할 인증 시스템](.moai/specs/SPEC-AUTH-001/spec.md)
 - [SPEC-REPORT-001: 교권 침해 신고 접수](.moai/specs/SPEC-REPORT-001/spec.md)
+- [SPEC-MATCH-001: 변호사 주도 매칭 시스템](.moai/specs/SPEC-MATCH-001/spec.md)
 
 ---
 
@@ -153,10 +165,11 @@ pnpm playwright test
 
 ### 테스트 현황
 
-**전체**: 76개 테스트 ✅ 100% 통과
+**전체**: 100개 테스트 ✅ 100% 통과
 - **INFRA-001**: 16개 (환경별 클라이언트 테스트)
 - **AUTH-001**: 33개 (JWT, 비밀번호, 익명화)
 - **REPORT-001**: 27개 (검증, 마스킹)
+- **MATCH-001**: 24개 (매칭 서비스, API 엔드포인트)
 
 ## 프로젝트 구조
 
@@ -171,7 +184,10 @@ C:\dev\t119
 │   ├── specs/               # SPEC 문서들
 │   │   ├── SPEC-INFRA-001/  # Supabase 통합
 │   │   ├── SPEC-AUTH-001/   # 인증 시스템
-│   │   └── SPEC-REPORT-001/ # 신고 접수
+│   │   ├── SPEC-REPORT-001/ # 신고 접수
+│   │   ├── SPEC-MATCH-001/  # 변호사 매칭
+│   │   ├── SPEC-CONSULT-001/ # 실시간 상담
+│   │   └── SPEC-DASHBOARD-001/ # 역할별 대시보드
 │   └── memory/              # 개발 가이드
 ├── src/
 │   ├── app/                 # Next.js App Router

@@ -4,7 +4,7 @@ version: 0.0.1
 status: draft
 created: 2025-10-20
 updated: 2025-10-20
-author: @Goos
+author: @Alfred
 priority: critical
 category: feature
 labels:
@@ -31,7 +31,7 @@ scope:
 
 ### v0.0.1 (2025-10-20)
 - **INITIAL**: 역할별 대시보드 명세 최초 작성
-- **AUTHOR**: @Goos
+- **AUTHOR**: @Alfred
 - **SCOPE**: 교사/변호사/관리자 대시보드, 실시간 통계, 성능 최적화
 - **CONTEXT**: MVP Phase 1 - 사용자 맞춤형 정보 제공 및 시스템 모니터링
 
