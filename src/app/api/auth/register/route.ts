@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { registerSchema } from '@/lib/validators/auth.validator';
 import { hashPassword } from '@/lib/auth/password';
 import { generateNickname, hashIp } from '@/lib/auth/anonymize';
-import { supabaseAdmin } from '@/lib/supabase/admin';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { ZodError } from 'zod';
 
 /**
@@ -14,6 +14,8 @@ import { ZodError } from 'zod';
  */
 export async function POST(req: NextRequest) {
   try {
+    const supabaseAdmin = createAdminClient();
+
     // 1. 요청 본문 파싱
     const body = await req.json();
 
@@ -64,12 +66,14 @@ export async function POST(req: NextRequest) {
     });
 
     if (authError || !authData.user) {
+      console.error('Auth createUser error:', authError);
       return NextResponse.json(
         {
           success: false,
           error: {
             code: 'AUTH_ERROR',
             message: '회원가입에 실패했습니다.',
+            details: authError?.message || 'Unknown auth error',
           },
         },
         { status: 500 }
@@ -98,6 +102,7 @@ export async function POST(req: NextRequest) {
       .single();
 
     if (dbError || !userData) {
+      console.error('DB insert error:', dbError);
       // Supabase Auth 사용자 삭제 (롤백)
       await supabaseAdmin.auth.admin.deleteUser(authData.user.id);
 
@@ -107,6 +112,7 @@ export async function POST(req: NextRequest) {
           error: {
             code: 'DATABASE_ERROR',
             message: '사용자 정보 저장에 실패했습니다.',
+            details: dbError?.message || 'Unknown database error',
           },
         },
         { status: 500 }
