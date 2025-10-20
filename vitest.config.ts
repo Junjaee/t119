@@ -3,6 +3,9 @@ import path from 'path';
 
 export default defineConfig({
   plugins: [],
+  esbuild: {
+    jsxInject: `import React from 'react'`,
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/setup.ts'],
