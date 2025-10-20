@@ -1,0 +1,32 @@
+{
+  "projectName": "Teacher119",
+  "projectDescription": "교사 권익 보호 통합 지원 플랫폼",
+  "mode": "personal",
+  "locale": "ko",
+  "language": "typescript",
+  "framework": "nextjs",
+  "testFramework": "vitest",
+  "packageManager": "pnpm",
+  "database": "supabase",
+  "moai_adk_version": "0.4.0",
+  "optimized": true,
+  "project": {
+    "type": "web-application",
+    "category": "education-legal",
+    "phase": "mvp",
+    "team_size": 3
+  },
+  "tech": {
+    "runtime": "node-20",
+    "ui_library": "shadcn-ui",
+    "state_management": "zustand",
+    "styling": "tailwind",
+    "deployment": "vercel"
+  },
+  "quality": {
+    "linter": "eslint",
+    "formatter": "prettier",
+    "coverage_target": 85,
+    "strict_mode": true
+  }
+}
