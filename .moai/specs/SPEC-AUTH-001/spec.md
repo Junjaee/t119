@@ -1,7 +1,7 @@
 ---
 id: AUTH-001
-version: 0.0.1
-status: draft
+version: 0.1.0
+status: completed
 created: 2025-10-20
 updated: 2025-10-20
 author: @teacher119
@@ -27,6 +27,16 @@ scope:
 # @SPEC:AUTH-001: 다중 역할 인증 시스템 (Multi-Role Authentication System)
 
 ## HISTORY
+
+### v0.1.0 (2025-10-20)
+- **COMPLETED**: TDD 구현 완료 (RED-GREEN-REFACTOR)
+- **TEST**: 테스트 33개 통과 (jwt 13개, anonymize 12개, password 8개)
+- **CODE**: 구현 파일 12개 (@CODE:AUTH-001)
+  - src/lib/auth/*.ts (4개: jwt, password, anonymize, rbac)
+  - src/app/api/auth/*.ts (5개 엔드포인트)
+  - src/middleware.ts, src/types/auth.types.ts
+  - src/lib/validators/auth.validator.ts
+- **AUTHOR**: @Alfred
 
 ### v0.0.1 (2025-10-20)
 - **INITIAL**: JWT 기반 다중 역할 인증 시스템 명세 작성

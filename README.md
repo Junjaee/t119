@@ -95,6 +95,49 @@ pnpm dev
 
 브라우저에서 [http://localhost:3000](http://localhost:3000) 열기
 
+## 구현 완료 기능
+
+### Phase 1: MVP 코어 인프라 (v0.1.0 완료)
+
+#### 1. Supabase 통합 (SPEC-INFRA-001 ✅)
+- **상태**: 완료 (v0.1.0)
+- **테스트**: 16개 통과
+- **기능**:
+  - 브라우저/서버/Admin 클라이언트 구현
+  - 타입 안전한 Supabase SDK
+  - PostgreSQL 데이터베이스 마이그레이션
+  - 역할 기반 RLS 정책 (RBAC)
+
+#### 2. 다중 역할 인증 시스템 (SPEC-AUTH-001 ✅)
+- **상태**: 완료 (v0.1.0)
+- **테스트**: 33개 통과
+- **기능**:
+  - JWT 기반 토큰 발급/검증
+  - 교사/변호사/관리자 3가지 역할 관리
+  - 비밀번호 bcrypt 암호화
+  - 익명화 (자동 닉네임, IP 해싱)
+  - 5개 인증 API 엔드포인트
+  - Next.js 미들웨어 (RBAC)
+
+#### 3. 교권 침해 신고 접수 (SPEC-REPORT-001 ✅)
+- **상태**: 완료 (v0.1.0)
+- **테스트**: 27개 통과
+- **기능**:
+  - 신고 작성/조회 API
+  - 개인정보(PII) 자동 마스킹
+  - 증거 파일 검증 (크기, 형식)
+  - 신고 상태 관리 (submitted → assigned → in_progress → resolved → closed)
+  - 긴급도 분류 (normal/high/critical)
+
+**테스트 현황**: 76개 테스트 100% 통과 (커버리지 85%+)
+
+### SPEC 문서
+- [SPEC-INFRA-001: Supabase 통합 설정](.moai/specs/SPEC-INFRA-001/spec.md)
+- [SPEC-AUTH-001: 다중 역할 인증 시스템](.moai/specs/SPEC-AUTH-001/spec.md)
+- [SPEC-REPORT-001: 교권 침해 신고 접수](.moai/specs/SPEC-REPORT-001/spec.md)
+
+---
+
 ## 테스트
 
 ```bash
@@ -107,6 +150,13 @@ pnpm test:coverage
 # E2E 테스트 (Playwright)
 pnpm playwright test
 ```
+
+### 테스트 현황
+
+**전체**: 76개 테스트 ✅ 100% 통과
+- **INFRA-001**: 16개 (환경별 클라이언트 테스트)
+- **AUTH-001**: 33개 (JWT, 비밀번호, 익명화)
+- **REPORT-001**: 27개 (검증, 마스킹)
 
 ## 프로젝트 구조
 

@@ -1,7 +1,7 @@
 ---
 id: REPORT-001
-version: 0.0.1
-status: draft
+version: 0.1.0
+status: completed
 created: 2025-10-20
 updated: 2025-10-20
 author: @teacher119
@@ -31,6 +31,16 @@ scope:
 # @SPEC:REPORT-001: 교권 침해 신고 접수 시스템
 
 ## HISTORY
+
+### v0.1.0 (2025-10-20)
+- **COMPLETED**: TDD 구현 완료 (RED-GREEN-REFACTOR)
+- **TEST**: 테스트 27개 통과 (validator 15개, pii-masking 12개)
+- **CODE**: 구현 파일 7개 (@CODE:REPORT-001)
+  - src/lib/reports/*.ts (3개: report-service, pii-masking, file-validator)
+  - src/app/api/reports/*.ts (2개 엔드포인트)
+  - src/types/report.types.ts
+  - src/lib/validators/report.validator.ts
+- **AUTHOR**: @Alfred
 
 ### v0.0.1 (2025-10-20)
 - **INITIAL**: 교권 침해 신고 접수 시스템 SPEC 최초 작성

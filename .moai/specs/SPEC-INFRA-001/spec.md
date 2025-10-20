@@ -1,7 +1,7 @@
 ---
 id: INFRA-001
-version: 0.0.1
-status: draft
+version: 0.1.0
+status: completed
 created: 2025-10-20
 updated: 2025-10-20
 author: @teacher119
@@ -28,6 +28,15 @@ scope:
 # @SPEC:INFRA-001: Supabase 통합 설정
 
 ## HISTORY
+
+### v0.1.0 (2025-10-20)
+- **COMPLETED**: TDD 구현 완료 (RED-GREEN-REFACTOR)
+- **TEST**: 테스트 16개 통과 (client 8개, admin 8개)
+- **CODE**: 구현 파일 6개 (@CODE:INFRA-001)
+  - src/lib/supabase/client.ts, server.ts, admin.ts
+  - src/types/database.types.ts
+  - supabase/migrations/*.sql (2개)
+- **AUTHOR**: @Alfred
 
 ### v0.0.1 (2025-10-20)
 - **INITIAL**: Supabase 통합 설정 명세 작성
