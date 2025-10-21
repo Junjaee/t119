@@ -1,7 +1,7 @@
 ---
 id: DASHBOARD-001
-version: 0.0.1
-status: active
+version: 0.1.0
+status: completed
 created: 2025-10-20
 updated: 2025-10-21
 author: @Alfred
@@ -28,6 +28,22 @@ scope:
 # @SPEC:DASHBOARD-001: 역할별 대시보드
 
 ## HISTORY
+
+### v0.1.0 (2025-10-21)
+- **CHANGED**: Phase 2-3 TDD 구현 완료 (status: active → completed)
+- **ADDED**: 교사 대시보드 위젯 4개
+  - ReportStatsWidget: 내 신고 현황 (@CODE:DASHBOARD-001)
+  - ConsultationWidget: 상담 이력 (@CODE:DASHBOARD-001)
+  - PersonalStatsWidget: 개인 통계 (@CODE:DASHBOARD-001)
+  - QuickActionsWidget: 빠른 액션 (@CODE:DASHBOARD-001)
+- **ADDED**: 변호사 대시보드 위젯 4개
+  - AssignedCasesWidget: 배정 사건 (@CODE:DASHBOARD-001)
+  - ActiveConsultationsWidget: 진행 중 상담 (@CODE:DASHBOARD-001)
+  - RatingWidget: 평가 점수 (@CODE:DASHBOARD-001)
+  - PerformanceStatsWidget: 실적 통계 (@CODE:DASHBOARD-001)
+- **STATS**: 63/63 tests passed (100%), 11 components implemented
+- **AUTHOR**: @Alfred
+- **UPDATED_BY**: @Alfred
 
 ### v0.0.1 (2025-10-21)
 - **CHANGED**: Phase 1 문서 동기화 완료 (status: draft → active)
