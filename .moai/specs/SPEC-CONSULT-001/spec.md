@@ -1,9 +1,9 @@
 ---
 id: CONSULT-001
-version: 0.0.1
-status: draft
+version: 0.1.0
+status: completed
 created: 2025-10-20
-updated: 2025-10-20
+updated: 2025-10-21
 author: @Alfred
 priority: critical
 category: feature
@@ -27,6 +27,26 @@ scope:
 # @SPEC:CONSULT-001: 실시간 상담 시스템
 
 ## HISTORY
+
+### v0.1.0 (2025-10-21)
+- **CHANGED**: TDD 구현 완료 (Zustand 상태 관리, UI 컴포넌트, 실시간 메시징)
+- **AUTHOR**: @Alfred
+- **TEST**: 59 tests passed - 5개 테스트 파일 완벽 통과
+  - consultation-store.test.ts (상태 관리 스토어)
+  - realtime-messaging.test.ts (실시간 메시징)
+  - file-upload.test.ts (파일 업로드)
+  - retry-logic.test.ts (재전송 로직)
+  - message-input.test.tsx, message-list.test.tsx (UI 컴포넌트)
+- **CODE**: 8개 구현 파일 - Zustand 스토어, 서비스 계층, UI 컴포넌트
+  - consultation-store.ts (상태 관리)
+  - consultation-service.ts (핵심 비즈니스 로직)
+  - realtime-subscription.ts (Supabase Realtime 연결)
+  - retry-service.ts (재전송 로직)
+  - file-service.ts (파일 업로드/다운로드)
+  - MessageList.tsx, MessageInput.tsx (UI 컴포넌트)
+  - consultation.types.ts (타입 정의)
+- **CONTEXT**: Phase 2 완료 - 실시간 메시지 전송, 파일 첨부, 온라인 상태 관리 구현
+- **TRUST**: 모든 TRUST 5원칙 검증 완료 (테스트 85%↑, 코드 품질, 타입 안전성, 보안, 추적성)
 
 ### v0.0.1 (2025-10-20)
 - **INITIAL**: 실시간 상담 시스템 명세 최초 작성
