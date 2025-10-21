@@ -1,9 +1,9 @@
 ---
 id: DASHBOARD-001
 version: 0.0.1
-status: draft
+status: active
 created: 2025-10-20
-updated: 2025-10-20
+updated: 2025-10-21
 author: @Alfred
 priority: critical
 category: feature
@@ -28,6 +28,17 @@ scope:
 # @SPEC:DASHBOARD-001: 역할별 대시보드
 
 ## HISTORY
+
+### v0.0.1 (2025-10-21)
+- **CHANGED**: Phase 1 문서 동기화 완료 (status: draft → active)
+- **ADDED**: Living Document 생성 (docs/dashboard/phase1-components.md)
+- **ADDED**: @DOC:DASHBOARD-001 TAG 체인 검증 완료
+- **COMPONENTS**:
+  - StatsCard: 통계 카드 위젯 (@CODE:DASHBOARD-001)
+  - ChartWidget: 차트 래퍼 컴포넌트 (@CODE:DASHBOARD-001)
+  - SkeletonCard: 로딩 스켈레톤 UI (@CODE:DASHBOARD-001)
+- **AUTHOR**: @Alfred
+- **UPDATED_BY**: @Alfred
 
 ### v0.0.1 (2025-10-20)
 - **INITIAL**: 역할별 대시보드 명세 최초 작성
