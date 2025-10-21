@@ -1,7 +1,7 @@
 ---
 # 필수 필드 (7개)
 id: COMMUNITY-001
-version: 0.0.2
+version: 0.0.3
 status: draft
 created: 2025-10-21
 updated: 2025-10-21
@@ -36,6 +36,19 @@ scope:
 # @SPEC:COMMUNITY-001: 커뮤니티 게시판 시스템
 
 ## HISTORY
+
+### v0.0.3 (2025-10-21)
+- **ADDED**: Service Layer 구현 완료 (8개 서비스 함수)
+- **ADDED**: Supabase 데이터베이스 스키마 (4 tables, RLS policies, triggers)
+- **CHANGED**: community.types.ts에 Input 타입 5개 추가
+- **AUTHOR**: @Alfred
+- **TEST**: 16/16 service layer tests (nickname logic + type safety + SPEC mapping)
+- **NOTE**: Service Layer 완료, UI Layer는 Supabase 데이터베이스 연결 후 구현 예정
+- **FILES**:
+  - src/lib/services/community-service.ts (562 LOC) - NEW
+  - tests/lib/services/community-service.test.ts (112 LOC) - NEW
+  - .moai/specs/SPEC-COMMUNITY-001/supabase-schema.sql (254 LOC) - NEW
+  - src/types/community.types.ts (+45 LOC for Input types)
 
 ### v0.0.2 (2025-10-21)
 - **CHANGED**: 기초 레이어 구현 완료 (Validation, Types, Utils)

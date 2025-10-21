@@ -100,3 +100,48 @@ export interface PostDetailResponse {
   post: Post;
   comments: Comment[];
 }
+
+/**
+ * 게시글 작성 입력 타입
+ */
+export interface CreatePostInput {
+  category: PostCategory;
+  title: string;
+  content: string;
+  image_url?: string;
+}
+
+/**
+ * 게시글 목록 조회 파라미터
+ */
+export interface GetPostListParams {
+  category?: PostCategory;
+  page?: number;
+  limit?: number;
+  sort?: PostSort;
+}
+
+/**
+ * 댓글 작성 입력 타입
+ */
+export interface CreateCommentInput {
+  post_id: string;
+  content: string;
+}
+
+/**
+ * 게시글 신고 입력 타입
+ */
+export interface ReportPostInput {
+  post_id: string;
+  reason: string;
+}
+
+/**
+ * 임시 저장 입력 타입
+ */
+export interface SaveDraftInput {
+  category: PostCategory;
+  title: string;
+  content: string;
+}
