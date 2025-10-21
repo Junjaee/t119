@@ -1,7 +1,7 @@
 ---
 # 필수 필드 (7개)
 id: COMMUNITY-001
-version: 0.0.1
+version: 0.0.2
 status: draft
 created: 2025-10-21
 updated: 2025-10-21
@@ -36,6 +36,21 @@ scope:
 # @SPEC:COMMUNITY-001: 커뮤니티 게시판 시스템
 
 ## HISTORY
+
+### v0.0.2 (2025-10-21)
+- **CHANGED**: 기초 레이어 구현 완료 (Validation, Types, Utils)
+- **AUTHOR**: @Alfred
+- **NOTE**: 서비스 레이어는 Supabase 스키마 생성 후 구현 예정
+- **TEST**: 44/44 tests passing (100% coverage for implemented layers)
+- **COMMITS**: 823f314 (validators), 6451d3e (types + utils)
+- **FILES**:
+  - src/lib/validators/post.validator.ts (81 LOC)
+  - src/lib/validators/comment.validator.ts (28 LOC)
+  - src/types/community.types.ts (98 LOC)
+  - src/lib/utils/nickname-generator.ts (42 LOC)
+  - tests/lib/validators/post.validator.test.ts (254 LOC)
+  - tests/lib/validators/comment.validator.test.ts (95 LOC)
+  - tests/lib/utils/nickname-generator.test.ts (110 LOC)
 
 ### v0.0.1 (2025-10-21)
 - **INITIAL**: 교사 간 익명 경험 공유 커뮤니티 게시판 시스템 명세 작성
