@@ -106,6 +106,67 @@
 
 ---
 
+### Phase 4: 관리자 대시보드 위젯 ✅ (완료)
+
+**문서**: [phase4-admin-widgets.md](./phase4-admin-widgets.md)
+**상태**: completed (v0.2.0)
+**테스트**: 22개 (100% 통과)
+
+**위젯 4개**:
+1. **SystemStatsWidget** - 전체 통계
+   - 총 사용자 수 (교사/변호사 분리)
+   - 총 신고 건수
+   - 총 매칭 건수
+   - 총 상담 건수
+
+2. **UserManagementWidget** - 사용자 관리
+   - DAU/MAU (Daily/Monthly Active Users)
+   - 신규 가입 사용자 (최근 7일) BarChart
+   - 승인 대기 사용자 목록
+
+3. **SystemMonitoringWidget** - 시스템 모니터링
+   - 평균 응답 시간 (ms)
+   - 에러 발생 건수
+   - 데이터베이스 부하 (%)
+   - 응답 시간 추이 LineChart (선택)
+
+4. **MatchingStatusWidget** - 매칭 현황
+   - 대기 중 매칭 수
+   - 평균 매칭 시간 (분)
+   - 매칭 성공률 (%)
+   - 매칭 상태 분포 PieChart
+
+---
+
+### Phase 5: 통합 페이지 & 서비스 ✅ (완료)
+
+**문서**: [phase5-integrated-pages.md](./phase5-integrated-pages.md)
+**상태**: completed (v0.2.0)
+**테스트**: 34개 (100% 통과)
+
+**구현 사항**:
+1. **공통 레이아웃** (src/app/dashboard/layout.tsx)
+   - 헤더 (제목, 마지막 업데이트, 새로고침)
+   - 사이드바 (역할별 네비게이션)
+   - 인증 확인 및 5분 자동 갱신
+
+2. **관리자 대시보드 페이지** (src/app/dashboard/admin/page.tsx)
+   - 4개 위젯 렌더링 (2열 그리드)
+   - 권한 검증
+   - React Query 데이터 페칭
+
+3. **React Query Hook** (src/features/dashboard/hooks/useDashboardData.ts)
+   - 역할별 타입 안전 데이터 페칭
+   - 5분 자동 갱신
+   - 3회 재시도
+
+4. **데이터 서비스** (src/features/dashboard/services/dashboardService.ts)
+   - 병렬 데이터 페칭 (Promise.all)
+   - 역할별 데이터 변환
+   - 8개 헬퍼 함수
+
+---
+
 ## 전체 통계
 
 ### 컴포넌트 & 위젯
@@ -123,8 +184,23 @@
 | Phase 3 | ActiveConsultationsWidget | src/features/dashboard/widgets/lawyer/ | ✅ |
 | Phase 3 | RatingWidget | src/features/dashboard/widgets/lawyer/ | ✅ |
 | Phase 3 | PerformanceStatsWidget | src/features/dashboard/widgets/lawyer/ | ✅ |
+| Phase 4 | SystemStatsWidget | src/features/dashboard/widgets/admin/ | ✅ |
+| Phase 4 | UserManagementWidget | src/features/dashboard/widgets/admin/ | ✅ |
+| Phase 4 | SystemMonitoringWidget | src/features/dashboard/widgets/admin/ | ✅ |
+| Phase 4 | MatchingStatusWidget | src/features/dashboard/widgets/admin/ | ✅ |
 
-**총 컴포넌트**: 11개
+**총 컴포넌트**: 15개
+
+### 서비스 & 페이지
+
+| Phase | 항목 | 파일 위치 | 상태 |
+|-------|------|---------|------|
+| Phase 5 | 공통 레이아웃 | src/app/dashboard/layout.tsx | ✅ |
+| Phase 5 | 관리자 페이지 | src/app/dashboard/admin/page.tsx | ✅ |
+| Phase 5 | Hook (useDashboardData) | src/features/dashboard/hooks/ | ✅ |
+| Phase 5 | 서비스 (dashboardService) | src/features/dashboard/services/ | ✅ |
+
+**총 서비스/페이지**: 4개
 
 ### 테스트 현황
 
@@ -133,7 +209,9 @@
 | Phase 1 | 23 | 23 | ✅ 100% |
 | Phase 2 | 20 | 20 | ✅ 100% |
 | Phase 3 | 20 | 20 | ✅ 100% |
-| **합계** | **63** | **63** | ✅ **100%** |
+| Phase 4 | 22 | 22 | ✅ 100% |
+| Phase 5 | 34 | 34 | ✅ 100% |
+| **합계** | **119** | **119** | ✅ **100%** |
 
 ### 문서 현황
 
@@ -142,6 +220,8 @@
 | Phase 1 | phase1-components.md | ✅ |
 | Phase 2 | phase2-teacher-widgets.md | ✅ |
 | Phase 3 | phase3-lawyer-widgets.md | ✅ |
+| Phase 4 | phase4-admin-widgets.md | ✅ |
+| Phase 5 | phase5-integrated-pages.md | ✅ |
 | 통합 | index.md (이 문서) | ✅ |
 
 ---
@@ -153,33 +233,51 @@
 ```
 @SPEC:DASHBOARD-001
   └─ .moai/specs/SPEC-DASHBOARD-001/spec.md
-     ├─ version: 0.1.0
+     ├─ version: 0.2.0
      ├─ status: completed
      └─ created: 2025-10-20
 
        ├─ @TEST:DASHBOARD-001
+       │   ├─ tests/components/dashboard/ (3 test files, 23 tests)
        │   ├─ tests/features/dashboard/widgets/teacher/ (4 test files, 20 tests)
        │   ├─ tests/features/dashboard/widgets/lawyer/ (4 test files, 20 tests)
-       │   └─ tests/components/dashboard/ (3 test files, 23 tests)
+       │   ├─ tests/features/dashboard/widgets/admin/ (4 test files, 22 tests)
+       │   ├─ tests/app/dashboard/layout.test.tsx (8 tests)
+       │   ├─ tests/app/dashboard/admin/page.test.tsx (7 tests)
+       │   ├─ tests/features/dashboard/hooks/useDashboardData.test.ts (9 tests)
+       │   └─ tests/features/dashboard/services/dashboardService.test.ts (10 tests)
        │
-       ├─ @CODE:DASHBOARD-001
-       │   ├─ src/components/dashboard/ (3 components: StatsCard, ChartWidget, SkeletonCard)
+       ├─ @CODE:DASHBOARD-001 (Base widgets & components)
+       │   ├─ src/components/dashboard/ (3 components)
        │   ├─ src/features/dashboard/widgets/teacher/ (4 widgets)
        │   └─ src/features/dashboard/widgets/lawyer/ (4 widgets)
+       │
+       ├─ @CODE:DASHBOARD-001:ADMIN-WIDGETS
+       │   └─ src/features/dashboard/widgets/admin/ (4 widgets)
+       │
+       ├─ @CODE:DASHBOARD-001:DASHBOARD-PAGES
+       │   ├─ src/app/dashboard/layout.tsx
+       │   ├─ src/app/dashboard/admin/page.tsx
+       │   ├─ src/features/dashboard/hooks/useDashboardData.ts
+       │   └─ src/features/dashboard/services/dashboardService.ts
        │
        └─ @DOC:DASHBOARD-001
            ├─ docs/dashboard/phase1-components.md
            ├─ docs/dashboard/phase2-teacher-widgets.md
            ├─ docs/dashboard/phase3-lawyer-widgets.md
+           ├─ docs/dashboard/phase4-admin-widgets.md
+           ├─ docs/dashboard/phase5-integrated-pages.md
            └─ docs/dashboard/index.md (이 문서)
 ```
 
 ### TAG 검증 통계
 
-- **@SPEC:DASHBOARD-001**: 1개 (SPEC 문서)
-- **@TEST:DASHBOARD-001**: 11개 (테스트 파일) → 63개 테스트
-- **@CODE:DASHBOARD-001**: 11개 (컴포넌트/위젯)
-- **@DOC:DASHBOARD-001**: 4개 (문서 파일)
+- **@SPEC:DASHBOARD-001**: 1개 (SPEC 문서, v0.2.0)
+- **@TEST:DASHBOARD-001**: 19개 (테스트 파일) → 119개 테스트
+- **@CODE:DASHBOARD-001**: 11개 (기본 컴포넌트/위젯)
+- **@CODE:DASHBOARD-001:ADMIN-WIDGETS**: 4개 (관리자 위젯)
+- **@CODE:DASHBOARD-001:DASHBOARD-PAGES**: 4개 (페이지/서비스)
+- **@DOC:DASHBOARD-001**: 6개 (문서 파일)
 - **TAG 체인 완전성**: 100% (모든 SPEC-TEST-CODE-DOC 연결)
 - **고아 TAG**: 0개 (모든 TAG가 참조됨)
 
@@ -309,28 +407,35 @@ docs/
 
 ## 다음 단계 (로드맵)
 
-### Phase 4: 관리자 대시보드 (선택사항)
-- AdminDashboardWidget: 전체 통계 (사용자, 신고, 매칭, 상담)
-- UserManagementWidget: 신규 가입 사용자, 활성 사용자 (DAU/MAU)
-- SystemMonitoringWidget: 서버 응답 시간, 에러 발생 현황
-- MatchingStatusWidget: 대기 중 매칭, 평균 매칭 시간, 성공률
+### Phase 4: 관리자 대시보드 위젯 ✅ (완료)
+- ✅ SystemStatsWidget: 전체 통계 (사용자, 신고, 매칭, 상담)
+- ✅ UserManagementWidget: 신규 가입 사용자, 활성 사용자 (DAU/MAU)
+- ✅ SystemMonitoringWidget: 서버 응답 시간, 에러 발생 현황
+- ✅ MatchingStatusWidget: 대기 중 매칭, 평균 매칭 시간, 성공률
 
-### Phase 5: 실시간 기능
-- Supabase Realtime 구독 구현
-- 웹소켓 자동 갱신
-- 아이콘 알림 추가
+### Phase 5: 통합 페이지 & 서비스 ✅ (완료)
+- ✅ 공통 대시보드 레이아웃 (layout.tsx)
+- ✅ 관리자 대시보드 페이지 (admin/page.tsx)
+- ✅ React Query Hook (useDashboardData)
+- ✅ 데이터 페칭 서비스 (dashboardService)
 
-### Phase 6: 고급 기능
-- 위젯 배치 커스터마이징
-- 데이터 내보내기 (CSV, PDF)
-- 통계 기간 변경 (주간/월간/연간)
-- 다크모드 지원
+### Phase 6: 실시간 기능 (다음)
+- [ ] Supabase Realtime 구독 구현
+- [ ] 웹소켓 자동 재연결
+- [ ] 알림 시스템 추가
+- [ ] 실시간 데이터 업데이트
 
-### Phase 7: 성능 최적화
-- 초기 로딩 시간 측정
-- 번들 크기 최적화
-- 이미지 최적화
-- CDN 캐싱 설정
+### Phase 7: 고급 기능 (선택)
+- [ ] 위젯 배치 커스터마이징
+- [ ] 데이터 내보내기 (CSV, PDF)
+- [ ] 통계 기간 변경 (주간/월간/연간)
+- [ ] 다크모드 지원
+
+### Phase 8: 성능 최적화 (선택)
+- [ ] 초기 로딩 시간 측정
+- [ ] 번들 크기 최적화
+- [ ] 이미지 최적화
+- [ ] CDN 캐싱 설정
 
 ---
 
@@ -445,19 +550,20 @@ queryClient.invalidateQueries(['teacher-stats', userId]);
 ### 마지막 업데이트
 - **날짜**: 2025-10-21
 - **작성자**: @Alfred
-- **버전**: v0.1.0
+- **버전**: v0.2.0
 - **상태**: completed
 
 ### 문서 버전 관리
 | 버전 | 날짜 | 변경사항 |
 |------|------|--------|
+| v0.2.0 | 2025-10-21 | Phase 4-5 완료, 통합 인덱스 및 Living Document 업데이트 |
 | v0.1.0 | 2025-10-21 | Phase 2-3 완료, 통합 인덱스 생성 |
 | v0.0.1 | 2025-10-20 | Phase 1 완료 |
 
 ### 다음 업데이트
-- Phase 4 (관리자 대시보드) 추가 시
-- Supabase Realtime 구현 시
-- 성능 최적화 완료 시
+- Phase 6 (Supabase Realtime) 구현 시
+- Phase 7 (고급 기능) 추가 시
+- Phase 8 (성능 최적화) 완료 시
 
 ---
 

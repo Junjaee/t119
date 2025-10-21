@@ -1,6 +1,6 @@
 ---
 id: DASHBOARD-001
-version: 0.1.0
+version: 0.2.0
 status: completed
 created: 2025-10-20
 updated: 2025-10-21
@@ -18,16 +18,35 @@ depends_on:
 scope:
   packages:
     - src/features/dashboard
+    - src/app/dashboard
     - src/components/charts
   files:
     - teacher-dashboard.tsx
     - lawyer-dashboard.tsx
     - admin-dashboard.tsx
+    - layout.tsx
 ---
 
 # @SPEC:DASHBOARD-001: 역할별 대시보드
 
 ## HISTORY
+
+### v0.2.0 (2025-10-21)
+- **CHANGED**: Phase 4-5 TDD 구현 완료 (관리자 대시보드 + 통합 페이지)
+- **ADDED**: 관리자 대시보드 위젯 4개 (Phase 4)
+  - SystemStatsWidget: 전체 통계 (@CODE:DASHBOARD-001:ADMIN-WIDGETS)
+  - UserManagementWidget: 사용자 관리 (@CODE:DASHBOARD-001:ADMIN-WIDGETS)
+  - SystemMonitoringWidget: 시스템 모니터링 (@CODE:DASHBOARD-001:ADMIN-WIDGETS)
+  - MatchingStatusWidget: 매칭 현황 (@CODE:DASHBOARD-001:ADMIN-WIDGETS)
+- **ADDED**: 통합 페이지 및 서비스 (Phase 5)
+  - src/app/dashboard/layout.tsx (@CODE:DASHBOARD-001:DASHBOARD-PAGES)
+  - src/app/dashboard/admin/page.tsx (@CODE:DASHBOARD-001:DASHBOARD-PAGES)
+  - src/features/dashboard/hooks/useDashboardData.ts (@CODE:DASHBOARD-001:DASHBOARD-PAGES)
+  - src/features/dashboard/services/dashboardService.ts (@CODE:DASHBOARD-001:DASHBOARD-PAGES)
+- **STATS**: 87/87 tests passed (100%), 15 components + 3 services implemented
+- **COVERAGE**: Teacher 4 + Lawyer 4 + Admin 4 + Components 3 = 15 total
+- **AUTHOR**: @Alfred
+- **UPDATED_BY**: @Alfred
 
 ### v0.1.0 (2025-10-21)
 - **CHANGED**: Phase 2-3 TDD 구현 완료 (status: active → completed)
