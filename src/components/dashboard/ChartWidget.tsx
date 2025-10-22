@@ -56,7 +56,7 @@ export function ChartWidget({
   className,
 }: ChartWidgetProps) {
   return (
-    <Card className={cn('p-4', className)}>
+    <Card data-testid="chart-widget" className={cn('p-4', className)}>
       {/* 헤더 */}
       <div className="mb-4">
         <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
