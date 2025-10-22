@@ -11,7 +11,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useCreatePost, useDraft } from '@/hooks/community';
+import { useCreatePost, useDraft, useSaveDraft } from '@/hooks/community';
 import { createPostSchema } from '@/lib/validators/post.validator';
 import type { CreatePostInput } from '@/types/community.types';
 
@@ -24,7 +24,6 @@ const CATEGORY_OPTIONS = [
 export default function PostFormPage() {
   const router = useRouter();
   const createPost = useCreatePost();
-  const { data: draftData, saveDraft } = useDraft();
   const [autoSaveStatus, setAutoSaveStatus] = useState<'saved' | 'saving' | null>(null);
 
   const {
@@ -43,6 +42,10 @@ export default function PostFormPage() {
   });
 
   const formValues = watch();
+
+  // 임시 저장 hooks
+  const { data: draftData } = useDraft(formValues.category);
+  const saveDraft = useSaveDraft();
 
   // 임시 저장 불러오기
   useEffect(() => {
