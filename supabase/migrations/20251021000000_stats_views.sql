@@ -24,7 +24,7 @@ SELECT
     2
   ) AS percentage
 FROM reports
-WHERE status != 'deleted' AND status IS NOT NULL
+WHERE status IS NOT NULL
 GROUP BY DATE_TRUNC('month', created_at), type, region, school_level
 ORDER BY month DESC, report_count DESC;
 
@@ -70,7 +70,7 @@ FROM (
     COUNT(*) AS report_count
   FROM reports
   WHERE created_at >= NOW() - INTERVAL '12 months'
-    AND status != 'deleted'
+    AND status IS NOT NULL
   GROUP BY DATE_TRUNC('month', created_at)
 ) monthly_data
 ORDER BY month DESC;

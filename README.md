@@ -63,28 +63,30 @@ JWT_REFRESH_TOKEN_EXPIRES_IN=7d
 
 ### 4. 데이터베이스 마이그레이션
 
-#### 방법 1: Supabase Dashboard (권장)
+**상세 가이드**: [DEPLOYMENT_GUIDE.md](./DEPLOYMENT_GUIDE.md) 참조
 
-1. Supabase Dashboard → **SQL Editor**
-2. "New Query" 클릭
-3. `supabase/migrations/20251020000000_initial_schema.sql` 내용 복사/붙여넣기
-4. "Run" 클릭
-5. 동일하게 `supabase/migrations/20251020000001_rls_policies.sql` 실행
+#### 필수 마이그레이션 순서 (Supabase Dashboard → SQL Editor)
 
-#### 방법 2: Supabase CLI (고급)
+1. `20251020000002_add_report_columns.sql` - Reports 테이블 컬럼 추가
+2. `20251020000003_add_consultation_columns.sql` - Consultations 테이블 컬럼 추가
+3. `20251021000000_stats_views.sql` - 통계 뷰 생성
+4. `20251022000000_admin_tables.sql` - 관리자 시스템
+5. `20251022000001_notifications.sql` - 알림 시스템
+6. `20251023000000_search_system.sql` - 검색 시스템
 
-```bash
-# Supabase CLI 설치
-npx supabase init
+각 마이그레이션 파일을 순서대로 실행하세요 (복사/붙여넣기 → Run)
 
-# 로컬 Supabase 시작
-npx supabase start
+#### 검증 쿼리
 
-# 마이그레이션 적용
-npx supabase db push
+```sql
+-- 모든 테이블 확인
+SELECT table_name FROM information_schema.tables
+WHERE table_schema = 'public'
+ORDER BY table_name;
 
-# TypeScript 타입 생성
-npx supabase gen types typescript --local > src/types/database.types.ts
+-- 모든 뷰 확인
+SELECT table_name FROM information_schema.views
+WHERE table_schema = 'public';
 ```
 
 ### 5. 개발 서버 실행
