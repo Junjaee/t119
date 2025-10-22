@@ -7,7 +7,7 @@ export default defineConfig({
     jsxInject: `import React from 'react'`,
   },
   test: {
-    environment: 'jsdom',
+    environment: 'happy-dom',
     setupFiles: ['./tests/setup.ts'],
     coverage: {
       provider: 'v8',
