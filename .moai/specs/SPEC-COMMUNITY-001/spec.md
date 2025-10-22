@@ -1,10 +1,10 @@
 ---
 # 필수 필드 (7개)
 id: COMMUNITY-001
-version: 0.0.3
+version: 0.0.4
 status: draft
 created: 2025-10-21
-updated: 2025-10-21
+updated: 2025-10-22
 author: @Alfred
 priority: high
 
@@ -36,6 +36,38 @@ scope:
 # @SPEC:COMMUNITY-001: 커뮤니티 게시판 시스템
 
 ## HISTORY
+
+### v0.0.4 (2025-10-22)
+- **ADDED**: UI Layer 구현 완료 (React Query Hooks 7개 + UI Components 3개)
+- **ADDED**: React Query Hooks (`src/hooks/community/`):
+  - `usePosts.ts` - 게시글 목록 조회 (페이지네이션, 필터링, 정렬)
+  - `usePost.ts` - 게시글 상세 조회
+  - `useCreatePost.ts` - 게시글 작성 (mutation)
+  - `useCreateComment.ts` - 댓글 작성 (mutation)
+  - `useReportPost.ts` - 게시글 신고 (mutation)
+  - `useDraft.ts` - 임시 저장 조회/저장 (mutation)
+  - `index.ts` - Hooks 통합 export
+- **ADDED**: UI Components (`src/components/community/`):
+  - `PostCard.tsx` - 게시글 카드 (익명 닉네임, 조회수, 상대 시간)
+  - `PostList.tsx` - 게시글 목록 (로딩/에러/빈 상태 처리)
+  - `index.ts` - Components 통합 export
+- **ADDED**: Test Page (`src/app/community/test/page.tsx`):
+  - 카테고리 필터 (전체/사례/Q&A/정보)
+  - 정렬 옵션 (최신순/인기순)
+  - PostList 컴포넌트 통합
+- **ADDED**: 패키지 의존성:
+  - `date-fns@4.1.0` - 상대 시간 표시 (예: "3시간 전")
+- **AUTHOR**: @Alfred
+- **TEST**: Hooks는 Supabase 연결 후 테스트 예정
+- **NOTE**: 기본 UI Layer 완료, 추가 컴포넌트(PostDetail, PostForm 등)는 선택적 구현
+- **FILES**:
+  - src/hooks/community/ (7 files) - NEW
+  - src/components/community/ (3 files) - NEW
+  - src/app/community/test/page.tsx - NEW
+  - package.json (+date-fns)
+- **COMMITS**:
+  - `2242532`: 🎨 UI: COMMUNITY-001 기본 UI Components 및 테스트 페이지 구현
+  - `a7e2133`: 🟢 GREEN: COMMUNITY-001 React Query Hooks 구현 완료
 
 ### v0.0.3 (2025-10-21)
 - **ADDED**: Service Layer 구현 완료 (8개 서비스 함수)
