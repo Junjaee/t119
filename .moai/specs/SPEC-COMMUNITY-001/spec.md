@@ -518,6 +518,25 @@ interface PostDraft {
 
 ---
 
-**최종 업데이트**: 2025-10-21
+## 11. 문서 및 추적성
+
+### Living Document
+- `docs/community.md` (@DOC:COMMUNITY-001) - 2025-10-22 생성
+  - 아키텍처 다이어그램
+  - 구현 현황 (70% 완료)
+  - API 매핑
+  - 테스트 계획
+  - 다음 단계
+
+### @TAG 현황 요약
+- **@SPEC:COMMUNITY-001**: 72개 참조 (spec.md + seed-test-data.sql + supabase-schema.sql)
+- **@TEST:COMMUNITY-001**: 12개 참조 (단위 + 통합 테스트)
+- **@CODE:COMMUNITY-001**: 21개 참조 (구현 코드)
+- **@DOC:COMMUNITY-001**: 1개 참조 (living document)
+- **TAG 체인 상태**: Primary Chain 무결성 ✅ (SPEC → TEST → CODE → DOC)
+
+---
+
+**최종 업데이트**: 2025-10-22 (doc-syncer 동기화)
 **작성자**: @Alfred
-**버전**: 0.0.1 (INITIAL)
+**버전**: 0.0.4 (Living Document 동기화 완료)
