@@ -1,8 +1,8 @@
 ---
 # 필수 필드 (7개)
 id: COMMUNITY-001
-version: 0.0.4
-status: draft
+version: 0.1.0
+status: completed
 created: 2025-10-21
 updated: 2025-10-22
 author: @Alfred
@@ -36,6 +36,36 @@ scope:
 # @SPEC:COMMUNITY-001: 커뮤니티 게시판 시스템
 
 ## HISTORY
+
+### v0.1.0 (2025-10-22)
+- **COMPLETED**: TDD 구현 완료 (RED → GREEN → REFACTOR)
+- **ADDED**: API Routes 7개 구현 완료:
+  - `POST /api/community/posts` - 게시글 작성 (익명 닉네임 자동 부여)
+  - `GET /api/community/posts` - 게시글 목록 조회 (페이지네이션, 필터링, 정렬)
+  - `GET /api/community/posts/:id` - 게시글 상세 조회 (조회수 +1, 댓글 포함)
+  - `POST /api/community/posts/:id/comments` - 댓글 작성 (익명 닉네임 자동 부여)
+  - `POST /api/community/posts/:id/report` - 게시글 신고 (3회 이상 시 자동 블라인드)
+  - `GET /api/community/drafts` - 임시 저장 조회
+  - `POST /api/community/drafts` - 임시 저장 (자동 저장)
+- **ADDED**: API Routes 테스트 10개 통과:
+  - `tests/api/community/posts/create.test.ts` (4 tests)
+  - `tests/api/community/posts/list.test.ts` (5 tests)
+  - `tests/api/community/posts/detail.test.ts` (1 test)
+- **TEST**: 85/85 tests passing (100% pass rate)
+  - Validation Layer: 48 tests
+  - Service Layer: 16 tests
+  - Utils: 11 tests
+  - API Routes: 10 tests
+- **AUTHOR**: @Alfred
+- **NOTE**: 핵심 기능 구현 완료, E2E 테스트는 별도 SPEC으로 진행 예정
+- **FILES**:
+  - src/app/api/community/posts/route.ts (POST, GET) - NEW
+  - src/app/api/community/posts/[id]/route.ts (GET) - NEW
+  - src/app/api/community/posts/[id]/comments/route.ts (POST) - NEW
+  - src/app/api/community/posts/[id]/report/route.ts (POST) - NEW
+  - src/app/api/community/drafts/route.ts (GET, POST) - NEW
+  - tests/api/community/posts/*.test.ts (3 files) - NEW
+- **COMMITS**: TDD 구현 (RED → GREEN → REFACTOR)
 
 ### v0.0.4 (2025-10-22)
 - **ADDED**: UI Layer 구현 완료 (React Query Hooks 7개 + UI Components 3개)

@@ -1,10 +1,10 @@
 ---
 # 필수 필드 (7개)
 id: ADMIN-001
-version: 0.0.1
-status: draft
+version: 0.1.0
+status: completed
 created: 2025-10-21
-updated: 2025-10-21
+updated: 2025-10-22
 author: @Alfred
 priority: medium
 
@@ -35,6 +35,17 @@ scope:
 # @SPEC:ADMIN-001: 관리자 협회 관리 시스템
 
 ## HISTORY
+
+### v0.1.0 (2025-10-22)
+- **ADDED**: TDD 구현 완료 - API Layer
+  - TAG-007: Association APIs (16 tests) - POST/GET/PATCH/DELETE 협회 관리 ✅
+  - TAG-008: Approval APIs (12 tests) - GET/POST 사용자 승인/거부 ✅
+  - TAG-009: Dashboard API (5 tests) - GET 통계 대시보드 ✅
+  - TAG-010: Audit Logs API (10 tests) - GET 감사 로그 조회 ✅
+- **CHANGED**: status: draft → completed (API Layer 완료)
+- **AUTHOR**: @Alfred
+- **REVIEW**: TDD RED-GREEN-REFACTOR 사이클 준수, 43 tests passing
+- **REASON**: 관리자 핵심 기능 API 구현 완료
 
 ### v0.0.1 (2025-10-21)
 - **INITIAL**: 관리자 협회 관리 시스템 명세 작성
