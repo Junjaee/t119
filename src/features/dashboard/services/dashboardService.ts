@@ -165,6 +165,22 @@ export async function fetchTeacherDashboardData(
  * - consultations 테이블: lawyer_id = userId 필터
  * - 병렬 페칭으로 성능 최적화
  * - 최근 5개 사건만 조회 (SPEC 제약사항)
+ *
+ * @param {string} userId - 변호사 사용자 ID
+ * @returns {Promise<LawyerDashboardData>} 변호사 대시보드 데이터
+ *   - cases: 배정된 사건 현황 (상태별 카운트 + 최근 5개)
+ *   - consultations: 상담 이력 (최근 3개)
+ *   - stats: 종합 통계 (총 사건 수, 평균 처리 시간, 평균 평점)
+ *
+ * @throws {Error} 데이터 조회 실패 시 에러 발생
+ *   - 사건 데이터 조회 실패: {error message}
+ *   - 상담 데이터 조회 실패: {error message}
+ *   - 통계 데이터 조회 실패: {error message}
+ *
+ * @example
+ * const data = await fetchLawyerDashboardData('lawyer-uuid');
+ * console.log(data.stats.totalCases); // 사건 총 수
+ * console.log(data.cases.stats.completed); // 완료된 사건 수
  */
 export async function fetchLawyerDashboardData(
   userId: string
@@ -172,9 +188,13 @@ export async function fetchLawyerDashboardData(
   const supabase = createClient();
 
   try {
-    // 병렬 페칭 (성능 최적화)
+    // @CODE:DASHBOARD-LAWYER-001:API - 병렬 페칭 (성능 최적화)
+    // SPEC: 3개 쿼리를 Promise.all로 동시 실행
+    // 목표: response time 50% 단축 (순차 실행 대비)
     const [casesResult, consultationsResult, statsResult] = await Promise.all([
-      // 1. 배정된 사건 조회 (최근 5개)
+      // @CODE:DASHBOARD-LAWYER-001:API - 1. 배정된 사건 조회 (최근 5개)
+      // SPEC: assigned_lawyer_id = userId로 필터 (RLS)
+      // SPEC: 최신순 정렬, 5개 제한
       supabase
         .from('reports')
         .select(`
@@ -189,7 +209,9 @@ export async function fetchLawyerDashboardData(
         .order('created_at', { ascending: false })
         .limit(5),
 
-      // 2. 상담 이력 조회 (최근 3개)
+      // @CODE:DASHBOARD-LAWYER-001:API - 2. 상담 이력 조회 (최근 3개)
+      // SPEC: lawyer_id = userId로 필터 (RLS)
+      // SPEC: 최신순 정렬, 3개 제한
       supabase
         .from('consultations')
         .select(`
@@ -204,36 +226,58 @@ export async function fetchLawyerDashboardData(
         .order('created_at', { ascending: false })
         .limit(3),
 
-      // 3. 통계용 전체 사건 조회
+      // @CODE:DASHBOARD-LAWYER-001:API - 3. 통계용 전체 사건 조회
+      // SPEC: 모든 배정된 사건 조회 (상태별 카운트 및 평균 계산용)
+      // SPEC: assigned_lawyer_id = userId로 필터 (RLS)
       supabase
         .from('reports')
         .select('id, created_at, updated_at, status')
         .eq('assigned_lawyer_id', userId),
     ]);
 
-    // 에러 체크
+    // @CODE:DASHBOARD-LAWYER-001:INFRA - 에러 체크
     if (casesResult.error) {
-      throw new Error(`사건 데이터 조회 실패: ${casesResult.error.message}`);
+      const errorMsg = `사건 데이터 조회 실패: ${casesResult.error.message}`;
+      console.error('[fetchLawyerDashboardData] Cases query error:', {
+        userId,
+        error: casesResult.error,
+        timestamp: new Date().toISOString(),
+      });
+      throw new Error(errorMsg);
     }
     if (consultationsResult.error) {
-      throw new Error(`상담 데이터 조회 실패: ${consultationsResult.error.message}`);
+      const errorMsg = `상담 데이터 조회 실패: ${consultationsResult.error.message}`;
+      console.error('[fetchLawyerDashboardData] Consultations query error:', {
+        userId,
+        error: consultationsResult.error,
+        timestamp: new Date().toISOString(),
+      });
+      throw new Error(errorMsg);
     }
     if (statsResult.error) {
-      throw new Error(`통계 데이터 조회 실패: ${statsResult.error.message}`);
+      const errorMsg = `통계 데이터 조회 실패: ${statsResult.error.message}`;
+      console.error('[fetchLawyerDashboardData] Stats query error:', {
+        userId,
+        error: statsResult.error,
+        timestamp: new Date().toISOString(),
+      });
+      throw new Error(errorMsg);
     }
 
     const cases = casesResult.data || [];
     const consultations = consultationsResult.data || [];
     const allCases = statsResult.data || [];
 
-    // 사건 상태별 카운트
+    // @CODE:DASHBOARD-LAWYER-001:DATA - 사건 상태별 카운트
+    // SPEC: 최근 5개 사건 (배정 기준)의 상태 분류
     const caseStats: LawyerCaseStats = {
       pending: cases.filter((c) => c.status === 'pending').length,
       inProgress: cases.filter((c) => c.status === 'in_progress').length,
       completed: cases.filter((c) => c.status === 'completed').length,
     };
 
-    // 평균 처리 시간 계산 (분 단위)
+    // @CODE:DASHBOARD-LAWYER-001:DATA - 평균 처리 시간 계산 (분 단위)
+    // SPEC: 완료된 모든 사건의 생성일~완료일 차이를 평균화
     const completedCases = allCases.filter(
       (c) => c.status === 'completed' && c.updated_at
     );
@@ -250,7 +294,9 @@ export async function fetchLawyerDashboardData(
           )
         : 0;
 
-    // 평균 평점 계산 (consultations.satisfaction_score 기반)
+    // @CODE:DASHBOARD-LAWYER-001:DATA - 평균 평점 계산
+    // SPEC: 최근 상담(최대 3개)의 satisfaction_score 평균
+    // 소수점 1자리까지 표시 (예: 4.5)
     const avgRating =
       consultations.length > 0
         ? Math.round(
@@ -263,9 +309,11 @@ export async function fetchLawyerDashboardData(
           ) / 10
         : 0;
 
+    // @CODE:DASHBOARD-LAWYER-001:DATA - 최종 데이터 구성 및 반환
     return {
       cases: {
         stats: caseStats,
+        // SPEC: 최근 5개 사건 정보 변환 (DB 스키마 → 프론트엔드 타입)
         recent: cases.map((c) => ({
           id: c.id,
           caseId: c.title,
@@ -276,6 +324,7 @@ export async function fetchLawyerDashboardData(
         })),
       },
       consultations: {
+        // SPEC: 최근 3개 상담 정보 변환 (DB 스키마 → 프론트엔드 타입)
         recent: consultations.map((c) => ({
           id: c.id,
           reportId: c.report?.title || '알 수 없음',
@@ -292,7 +341,13 @@ export async function fetchLawyerDashboardData(
       },
     };
   } catch (error) {
-    console.error('[fetchLawyerDashboardData] Error:', error);
+    // @CODE:DASHBOARD-LAWYER-001:INFRA - 예외 처리 및 로깅
+    console.error('[fetchLawyerDashboardData] Unexpected error:', {
+      userId,
+      error: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      timestamp: new Date().toISOString(),
+    });
     throw error;
   }
 }
